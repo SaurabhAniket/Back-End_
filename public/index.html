@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Phone Number</title>
+</head>
+
+<body>
+  <h1>Edit Phone Number</h1>
+  <form id="editPhoneNumberForm">
+    <label for="phoneNumber">Phone Number:</label>
+    <input type="text" id="phoneNumber" name="phoneNumber">
+    <button type="submit">Submit</button>
+  </form>
+
+  <script>
+    const form = document.getElementById('editPhoneNumberForm');
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const phoneNumberInput = document.getElementById('phoneNumber');
+      const phoneNumber = phoneNumberInput.value;
+
+      const userId = 'your_user_id'; // Replace with the actual user ID
+
+      try {
+        const response = await fetch(`/api/user/phonenumber`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ phone_number: phoneNumber, userId }),
+        });
+
+        const data = await response.json();
+        console.log(data); // Handle the response data
+      } catch (error) {
+        console.error(error);
+      }
+    });
+  </script>
+</body>
+
+</html>
